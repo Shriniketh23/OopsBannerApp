@@ -1,52 +1,89 @@
 class OopsBannerApp{
     public static void main(String [] args){
-       String[] lines = {
-    public class BannerOPS {
+      public class OOPSBannerApp {
 
-    // Pattern for O
-    public static String[] getOPattern() {
-        return new String[]{
-            " *** ",
-            "*   *",
-            "*   *",
-            "*   *",
-            " *** "
-        };
-    }
+    static class CharacterPatternMap {
+        char ch;
+        String[] pattern;
 
-    // Pattern for P
-    public static String[] getPPattern() {
-        return new String[]{
-            "**** ",
-            "*   *",
-            "**** ",
-            "*    ",
-            "*    "
-        };
-    }
-
-    // Pattern for S
-    public static String[] getSPattern() {
-        return new String[]{
-            " ****",
-            "*    ",
-            " *** ",
-            "    *",
-            "**** "
-        };
-    }
-
-    public static void main(String[] args) {
-
-        String[] oPattern = getOPattern();
-        String[] pPattern = getPPattern();
-        String[] sPattern = getSPattern();
-
-        for (int i = 0; i < oPattern.length; i++) {
-            System.out.println(oPattern[i] + "   " + pPattern[i] + "   " + sPattern[i]);
+        CharacterPatternMap(char ch, String[] pattern) {
+            this.ch = ch;
+            this.pattern = pattern;
         }
     }
-}
+
+    public static CharacterPatternMap[] createCharacterPatternMaps() {
+
+        String[] O = {
+            " *** ",
+            "** **",
+            "** **",
+            "** **",
+            "** **",
+            " *** "
+        };
+
+        String[] P = {
+            "**** ",
+            "** **",
+            "**** ",
+            "**   ",
+            "**   ",
+            "**   "
+        };
+
+        String[] S = {
+            " ****",
+            "**   ",
+            " *** ",
+            "   **",
+            "** **",
+            " ****"
+        };
+
+        return new CharacterPatternMap[] {
+            new CharacterPatternMap('O', O),
+            new CharacterPatternMap('P', P),
+            new CharacterPatternMap('S', S)
+        };
+    }
+
+    public static String[] getCharacterPattern(char ch, CharacterPatternMap[] charMaps) {
+        for (CharacterPatternMap map : charMaps) {
+            if (map.ch == ch) {
+                return map.pattern;
+            }
+        }
+        return new String[0];
+    }
+
+    public static void printMessage(String message, CharacterPatternMap[] charMaps) {
+
+        for (int i = 0; i < 6; i++) {
+            for (char c : message.toCharArray()) {
+                String[] pattern = getCharacterPattern(c, charMaps);
+                System.out.print(pattern[i] + "  ");
+            }
+            System.out.println();
+        }
+    }
+
+    /**
+     * Main method - Entry point for the banner display application
+     * Initializes the character pattern maps and displays "OOPS" as an ASCII art banner.
+     */
+    public static void main(String[] args) {
+
+        // Create CharacterPatternMap array
+        CharacterPatternMap[] charMaps = createCharacterPatternMaps();
+
+        // Define the message to be displayed
+        String message = "OOPS";
+
+        // Print the banner message
+        printMessage(message, charMaps);
+    }
+} 
 
     }
 }
